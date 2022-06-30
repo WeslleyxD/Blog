@@ -13,6 +13,8 @@ HTML - CSS - DJANGO - AWS (ELASTIC BEANSTALK - RDS)
 
 <hr>
 
+http://blog-deploy-env.eba-xjpnrjiw.us-west-2.elasticbeanstalk.com/blog/
+
 </div>
 
 
