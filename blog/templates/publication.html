@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="comments-container">
+    <div class="comments-content">
+        <div class="form-container">
+            <form method="post">
+                <h2>Adicione uma publicação</h2>
+                {{ post_form.as_p }}
+                {% csrf_token %}
+                <input type="submit" value="Publicar">
+            </form>
+        </div>       
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+

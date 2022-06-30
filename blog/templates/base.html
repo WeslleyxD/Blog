@@ -1,0 +1,140 @@
+<!-- Template tags -->
+<!-- https://docs.djangoproject.com/en/4.0/ref/templates/builtins/ -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/styless.css' %}">
+
+   <title>{% block title %}Base{% endblock %}</title> 
+</head>
+
+<body>
+  <header class="header-container">
+    <div class="header-content">
+      <div>
+        <a href="{% url 'blog:post_list' %}">
+          <h1>BLOG</h1>
+        </a>
+      </div>
+      <div class="publication">
+        <a href="{% url 'blog:post_publication' %}">
+          <h2>Publique aqui</h2>
+        </a>
+      </div>
+      <div class="header-item-form">
+        <div class="header-form">
+          <form action="{% url 'blog:post_search' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="search" placeholder="Procurar" required>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav-container">
+      <ul class="nav-content">
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'mundo' %}">Mundo</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'esportes' %}">Esportes</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'saude' %}">Saúde</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'tecnologia' %}">Tecnologia</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'games' %}">Games</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'natureza' %}">Natureza</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'cultura' %}">Cultura</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'dinheiro' %}">Dinheiro</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'politica' %}">Política</a>
+        </li>
+        <li class="li-underline">
+          <a class="underline" href="{% url 'blog:post_list_by_tag' 'turismo' %}">Turismo</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  {% block content %}
+  {% endblock %}
+
+  <footer class="footer-container">
+    <div class="footer-content">
+      <div class="footer-item-sobre">
+        <div style="width: 100%;"><h2>Sobre</h2></div>
+        <div><p> Projeto construído com o intuito de praticar HTML, CSS e
+          Django. Leia os posts de terceiros e publique suas escritas
+          nos mais diversos temas disponíveis. Divirta-se! :).</p></div>
+      </div>
+
+      <div class="footer-item-categorias">
+        <h2>Categorias</h2>
+        <div class="footer-item-categorias-categorias">
+          <ul class="footer-item-categorias-categorias-list">
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'mundo' %}">Mundo</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'esportes' %}">Esportes</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'saude' %}">Saúde</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'tecnologia' %}">Tecnologia</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'games' %}">Games</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'natureza' %}">Natureza</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'cultura' %}">Cultura</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'dinheiro' %}">Dinheiro</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'politica' %}">Política</a>
+            </li>
+            <li>
+              <a href="{% url 'blog:post_list_by_tag' 'turismo' %}">Turismo</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-content-copyright">
+      <div class="footer-item-copyright">
+        <h5>Copyright © 2022 All Rights Reserved by Weslley.</h5>
+      </div>
+      <div class="footer-item-icones">
+        <a href="https://github.com/WeslleyxD/WeslleyxD" target="_blank"><img src="{% static 'img/github.svg' %}"></a>
+        <a href="https://www.linkedin.com/in/weslley-pablo-7b0734222/" target="_blank"><img src="{% static 'img/linkedin.svg' %}" ></a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Compartilhe a publicação{% endblock %}
+
+
+{% block content %}
+<div class="send-container">
+    {% if sent %}
+    <div class="send-content-sucess">
+        <!-- <h1>E-mail successfully sent</h1> -->
+        <!-- <p>"{{ post.title }}" foi enviado com sucesso para {{ share_form.cleaned_data.to }}.</p> -->
+        <h1>Serviço Indisponível</h1>
+        <p>Não tenho acesso à AWS (SES) para enviar e-mail.</p>
+    </div>
+
+    {% else %}
+
+    <div class="send-content-form">
+        <div class="form-container">
+            <form method="post">
+                <h2>Compartilhe a publicação "{{ post.title }}" por e-mail</h2>
+                {% csrf_token %}
+                {{ share_form.as_p }}
+                <input type="submit" value="Send e-mail">
+            </form>
+
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock %}

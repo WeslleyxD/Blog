@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+
+{% block title %} Mais publicações em {{selected_tag}} {% endblock %}
+
+
+{% block content %}
+
+
+{% if post_list_tag %}
+
+<div class="u-container">
+    <div class="s-content-mais">
+        <div class="u-item-mais">
+            <h2>Publicações em "{{selected_tag|capfirst}}"</h2>
+        </div>
+        <div class="u-item-list">
+            {% for obj_tag in post_list_tag %}
+            <ul class="u-item-title-mais">
+                <li><a href="{{ obj_tag.get_absolute_url }}">{{obj_tag.title|capfirst}}</a></li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% else %}
+
+
+<div class="l-container">
+    {% for obj_list in post_list_random|slice:":2" %}
+
+    <div class="l-content-1">
+        <div class="l-content">
+            <div class="l-item-tag">
+                <a href="{% url 'blog:post_list_by_tag' obj_list.tag %}">
+                    <h5>Em {{obj_list.tag|capfirst}}</h5>
+                </a>
+            </div>
+
+            <div class="l-item-title">
+                <a href="{{ obj_list.get_absolute_url }}">
+                    <h2>{{obj_list.title|capfirst}}</h2>
+                </a>
+                <h6>{{obj_list.publish|date:"d M, H:i"}}</h6>
+            </div>
+
+            <div class="l-item-body">
+                <p>{{obj_list.body|truncatechars:80|linebreaks}}</p>
+            </div>
+
+            <div class="l-item-link">
+                <a href="{{ obj_list.get_absolute_url }}"><span> Continue lendo...</span></a>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+<div class="u-container">
+    <div class="u-content-pr">
+        <div class="u-item-pub">
+            <h3><span> Publicação Recente </span></h3>
+        </div>
+        <hr>
+        <div class="u-item-title">
+            <a href="{{ post_last.get_absolute_url }}">
+                <h2>{{post_last.title|capfirst }}}}</h2>
+            </a>
+        </div>
+        <div class="u-item-body">
+            <p>{{post_last.body|capfirst }}}}</p>
+        </div>
+    </div>
+    <div class="u-content-mais">
+        <div class="u-item-mais">
+            <h2>Mais publicações</h2>
+        </div>
+        <div class="u-item-list">
+            {% for post in random_posts|slice:":10" %}
+            <ul class="u-item-title-mais">
+                <li><a href="{{ post.get_absolute_url }}">{{post.title|capfirst}}</a></li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+
+{% endblock %}

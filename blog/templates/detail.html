@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+
+{% block title %} {{post.title}} {% endblock %}
+
+
+{% block content %}
+<div class="u-container">
+    <div class="u-content-pr">
+        <div class="u-item-title">
+            <a href="{{ post.get_absolute_url }}">
+                <h2>{{ post.title|capfirst }}</h2>
+            </a>
+        </div>
+        <hr>
+        <div class="l-item-tag">
+            <a href="{% url 'blog:post_list_by_tag' post.tag %}">
+                <h5>em {{post.tag|capfirst}}</h5>
+                <h6>{{ post.publish|date:"d M, H:i" }}</h6>
+            </a>
+        </div>
+
+        <div class="u-item-body">
+            <p>{{post.body}}</p>
+        </div>
+        <div class='u-item-share'>
+            <h5>
+                <a href="{% url 'blog:post_share' post.slug %}">
+                    Compartilhar
+                </a>
+            </h5>
+        </div>
+    </div>
+    <div class="u-content-mais">
+        <div class="u-item-mais">
+            <h2>Mais publicações</h2>
+        </div>
+        <div class="u-item-list">
+            {% for similar_post in similar_posts|slice:":10" %}
+            <ul class="u-item-title-mais">
+                <li><a href="{{ similar_post.get_absolute_url }}">{{similar_post.title|capfirst}}</a></li>
+            </ul>
+
+            {% empty %}
+
+            <h3>Aguardando novas publicações.</h3>
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="comments-container">
+    <h2>
+        {% with total_comments=comments.count %}
+        {{ total_comments }} Comentário{{ total_comments|pluralize }}
+        {% endwith %}
+    </h2>
+
+
+    <div class="comments-content">
+        {% for comment in page_obj %}
+        <div class="comments-items-descricao">
+            <div class="c-items">
+                <div class="c-item-user">
+                    <p> Comentário de {{ comment.name|capfirst }}:</p>
+                </div>
+
+                <div class="c-item-created">
+                    <h6>{{ comment.created }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="comments-items-body">
+            <div>
+                <p>{{ comment.body}}</p>
+            </div>
+        </div>
+        <hr>
+
+        {% empty %}
+
+        <p>Seja o primeiro a comentar na publicação</p>
+
+        {% endfor %}
+
+        <!-- Paginação -->
+        {% include "pagination.html" with page_obj=page_obj %}
+
+
+        <div class="form-container">
+            <form method="post">
+                <h2>Adicione um novo comentário</h2>
+                {{ comment_form.as_p }}
+                {% csrf_token %}
+                <input type="submit" value="Adicionar">
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

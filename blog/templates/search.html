@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+{% if list_query %}
+<div class="u-container">
+    <div class="s-content-mais">
+        <div class="u-item-mais">
+            {% with total_query=list_query.count %}
+            <h2>{{ total_query }} item{{ total_query|pluralize }} achado{{ total_query|pluralize}}</h2>
+            {% endwith %}
+        </div>
+        <div class="u-item-list">
+            {% for post in list_query %}
+            <ul class="u-item-title-mais">
+                <li><a href="{{ post.get_absolute_url }}">{{post.title|capfirst}}</a></li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% else %}
+
+
+<div class="u-item-mais">
+    <h1>Nenhum item achado</h1>
+</div>
+
+
+{% endif %}
+
+{% endblock %}
