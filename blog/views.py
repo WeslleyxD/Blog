@@ -145,9 +145,10 @@ def post_publication(request):
         post_form = PostForm(request.POST)
 
         if post_form.is_valid():
+            print (1)
             post_form.save()
             
-            return redirect(f'/blog/')
+            return redirect(f'/')
             
 
     return render (request, 'publication.html',
