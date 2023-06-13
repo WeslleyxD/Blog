@@ -32,7 +32,7 @@ def post_detail(request, post):
 
             new_comment.save()
 
-            return redirect(f'/blog/{slug}')
+            return redirect(f'/{slug}')
     else:
         comment_form = CommentForm()
 
@@ -145,7 +145,6 @@ def post_publication(request):
         post_form = PostForm(request.POST)
 
         if post_form.is_valid():
-            print (1)
             post_form.save()
             
             return redirect(f'/')
